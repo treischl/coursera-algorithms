@@ -1,0 +1,9 @@
+import (argv) sys
+import (karatsuba) karatsuba
+
+var cmd = argv[1].lower()
+
+if (cmd == "karatsuba"):
+  print(karatsuba(argv[2], argv[3]).join())
+else:
+  print("asdf")

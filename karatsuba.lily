@@ -1,54 +1,131 @@
 import (argv) sys
+import (Utils) utils
 
-define karatsuba(first: String, second: String) {
-    print(first.to_bytestring().size())
-    var len_first = first.to_bytestring().size()
+var utils = Utils()
 
-    print(first)
-    var test = first.slice(0, len_first / 2)
-    print(test.parse_i())
-    print(test.to_bytestring().size())
-    # var len_second = second.to_bytestring().size()
+define str_to_int_list(str: String): List[Integer] {
+  if (str.is_digit() == false): raise ValueError("Invalid number (" ++ str ++ ")")
 
-    # var result = 0
+  var int_list: List[Integer] = []
+  var chars = utils.to_char_list(str)
+  chars.each(|c| int_list.push(c.parse_i().unwrap()))
 
-    # var a = ""
-    # var b = ""
-    # var c = ""
-    # var d = ""
-
-    # var p = 0
-    # var q = 0
-
-    # var ac = ""
-    # var bd = ""
-    # var pq = ""
-    # var adbc = 0
-
-    # if len_first <= 1 && len_second <= 1: {
-    #     result = first.parse_i().unwrap_or(1) * second.parse_i().unwrap_or(1)
-
-    # else:
-    #     a = first.slice(0, len_first / 2)
-    #     b = first.slice((len_first / 2), len_first)
-    #     c = second.slice(0, len_first / 2)
-    #     d = second.slice((len_first / 2), len_first)
-        
-    #     p = a.parse_i().unwrap_or(0) + b.parse_i().unwrap_or(0)
-    #     q = c.parse_i().unwrap_or(0) + d.parse_i().unwrap_or(0)
-        
-    #     ac = karatsuba(a, c)
-    #     bd = karatsuba(b, d)
-    #     pq = karatsuba(p.to_s(), q.to_s())
-
-    #     adbc = pq.parse_i().unwrap() - ac.parse_i().unwrap() - bd.parse_i().unwrap()
-
-    #     print("adbc = {0}".format(adbc))
-    #     print("ac = {0}".format(ac))
-    #     print("bd = {0}".format(bd))
-    # }
-
-    # return result.to_s()
+  return int_list
 }
 
-karatsuba(argv[1], argv[2])
+define add_int_list(ints_1: List[Integer], ints_2: List[Integer]): List[Integer] {
+  var ints_tpl = utils.ensure_same_size_list(ints_1, ints_2, 0)
+  ints_1 = ints_tpl[0]
+  ints_2 = ints_tpl[1]
+
+  var num_ints = ints_1.size()
+  var result: List[Integer] = List.repeat(num_ints, 0)
+  for i in 1...num_ints: {
+    var curr_ndx = num_ints - i
+    
+    var curr_sum = result[curr_ndx] + ints_1[curr_ndx] + ints_2[curr_ndx]
+    if (result[curr_ndx] > 0): result[curr_ndx] = 0
+    var tens_dgt = curr_sum / 10
+    if (tens_dgt == 0): {
+      result[curr_ndx] += curr_sum
+    elif (curr_ndx == 0):
+      result.unshift(tens_dgt)
+      result[1] += curr_sum - (10 * tens_dgt)
+    else:
+      result[curr_ndx] += curr_sum - (10 * tens_dgt)
+      result[curr_ndx - 1] += tens_dgt
+    }
+  }
+
+  return result
+}
+
+define sub_int_list(ints_1: List[Integer], ints_2: List[Integer]): List[Integer] {
+  var ints_tpl = utils.ensure_same_size_list(ints_1, ints_2, 0)
+  ints_1 = ints_tpl[0]
+  ints_2 = ints_tpl[1]
+  
+  # ensure ints_1 >= ints_2
+  if (ints_2.join() > ints_1.join()): {
+    var ints_tmp = ints_2
+    ints_2 = ints_1
+    ints_1 = ints_tmp
+  }
+
+  var num_ints = ints_1.size()
+  var result: List[Integer] = List.repeat(num_ints, 0)
+  for i in 1...num_ints: {
+    var curr_ndx = num_ints - i
+
+    while (ints_1[curr_ndx] < ints_2[curr_ndx]): {
+      ints_1[curr_ndx - 1] -= 1
+      ints_1[curr_ndx] += 10
+    }
+
+    result[curr_ndx] = ints_1[curr_ndx] - ints_2[curr_ndx]
+  }
+
+  return result
+}
+
+define int_list_to_pow10(ints: List[Integer], n: Integer): List[Integer] {
+  for i in 1...n:
+    ints.push(0)
+  return ints
+}
+
+define karatsuba(first: String, second: String): List[Integer] {
+  var digits_1 = str_to_int_list(first)
+  var digits_2 = str_to_int_list(second)
+
+  var digits_tpl = utils.ensure_same_size_list(digits_1, digits_2, 0)
+
+  digits_1 = digits_tpl[0]
+  digits_2 = digits_tpl[1]
+
+  var num_digits = digits_1.size()
+
+  var i = 1
+  while (i < num_digits): i *= 2
+  if (i > num_digits): {
+    digits_1 = utils.left_pad_list(digits_1, i, 0)
+    digits_2 = utils.left_pad_list(digits_2, i, 0)
+    num_digits = i
+  }
+
+  var result: List[Integer] = []
+  if (num_digits == 1): {
+    result = [digits_1[0] * digits_2[0]]
+    var tens_dgt = result[0] / 10
+    if (tens_dgt > 0): {
+      result.unshift(tens_dgt)
+      result[1] -= (tens_dgt * 10)
+    }
+  else:
+    var a = digits_1.slice(0, num_digits / 2)
+    var b = digits_1.slice(num_digits / 2)
+    var c = digits_2.slice(0, num_digits / 2)
+    var d = digits_2.slice(num_digits / 2)
+
+    var p = add_int_list(a, b)
+    var q = add_int_list(c, d)
+
+    var ac = karatsuba(a.join(), c.join())
+    var bd = karatsuba(b.join(), d.join())
+    var pq = karatsuba(p.join(), q.join())
+
+    var adbc = sub_int_list(pq, ac)
+    var tmp = adbc
+    adbc = sub_int_list(adbc, bd)
+
+    result = int_list_to_pow10(ac, num_digits)
+    result = add_int_list(result, int_list_to_pow10(adbc, num_digits / 2))
+    result = add_int_list(result, bd)
+  }
+
+  while (result[0] == 0): {
+    if (result.size() == 1): break
+    result = result.slice(1)
+  }
+  return result
+}

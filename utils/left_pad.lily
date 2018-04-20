@@ -1,0 +1,30 @@
+define lp_str(str: String, len: Integer, ch: *String = " "): String {
+  var ch_len = ch.to_bytestring().size()
+  if (ch_len > 1):
+    ch = ch.slice(0, 1)
+  elif (ch_len == 0):
+    ch = " "
+
+  var str_len = str.to_bytestring().size()
+  len = len - str_len
+
+  var i = 0
+  while (i < len): {
+    str = ch ++ str
+    i += 1
+  }
+
+  return str
+}
+
+define lp_list[A](list: List[A], len: Integer, item: A): List[A] {
+  len = len - list.size()
+
+  var i = 0
+  while (i < len): {
+    list.unshift(item)
+    i += 1
+  }
+
+  return list
+}
