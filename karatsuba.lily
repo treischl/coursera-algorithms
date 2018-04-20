@@ -1,0 +1,54 @@
+import (argv) sys
+
+define karatsuba(first: String, second: String) {
+    print(first.to_bytestring().size())
+    var len_first = first.to_bytestring().size()
+
+    print(first)
+    var test = first.slice(0, len_first / 2)
+    print(test.parse_i())
+    print(test.to_bytestring().size())
+    # var len_second = second.to_bytestring().size()
+
+    # var result = 0
+
+    # var a = ""
+    # var b = ""
+    # var c = ""
+    # var d = ""
+
+    # var p = 0
+    # var q = 0
+
+    # var ac = ""
+    # var bd = ""
+    # var pq = ""
+    # var adbc = 0
+
+    # if len_first <= 1 && len_second <= 1: {
+    #     result = first.parse_i().unwrap_or(1) * second.parse_i().unwrap_or(1)
+
+    # else:
+    #     a = first.slice(0, len_first / 2)
+    #     b = first.slice((len_first / 2), len_first)
+    #     c = second.slice(0, len_first / 2)
+    #     d = second.slice((len_first / 2), len_first)
+        
+    #     p = a.parse_i().unwrap_or(0) + b.parse_i().unwrap_or(0)
+    #     q = c.parse_i().unwrap_or(0) + d.parse_i().unwrap_or(0)
+        
+    #     ac = karatsuba(a, c)
+    #     bd = karatsuba(b, d)
+    #     pq = karatsuba(p.to_s(), q.to_s())
+
+    #     adbc = pq.parse_i().unwrap() - ac.parse_i().unwrap() - bd.parse_i().unwrap()
+
+    #     print("adbc = {0}".format(adbc))
+    #     print("ac = {0}".format(ac))
+    #     print("bd = {0}".format(bd))
+    # }
+
+    # return result.to_s()
+}
+
+karatsuba(argv[1], argv[2])
