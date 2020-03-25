@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using System;
+using System.IO;
 
 namespace Algorithms
 {
@@ -10,6 +12,8 @@ namespace Algorithms
 
             builder.RegisterAssemblyTypes(typeof(ContainerSetup).Assembly)
                 .AsImplementedInterfaces();
+
+            builder.Register(_ => Console.Out).As<TextWriter>();
 
             return builder.Build();
         }
