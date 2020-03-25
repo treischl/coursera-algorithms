@@ -1,9 +1,0 @@
-define char_list(str: String): List[String] {
-  var chars: List[String] = []
-  var str_len = str.to_bytestring().size()
-
-  for i in 0...(str_len - 1):
-    chars.push(str.slice(i, i + 1))
-
-  return chars
-}
