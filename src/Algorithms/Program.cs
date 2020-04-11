@@ -1,4 +1,5 @@
 ﻿using Algorithms.Commands;
+using Algorithms.Core;
 using Autofac;
 using Autofac.Core;
 using CommandLine;
@@ -11,7 +12,8 @@ namespace Algorithms
 {
     public static class Program
     {
-        private static IContainer _container { get; } = ContainerSetup.Initialize();
+        private static IContainer _container { get; } =
+            ContainerSetup.InitializeConsole(typeof(Program).Assembly);
 
         public static void Main(string[] args)
         {

@@ -1,4 +1,4 @@
-﻿using Algorithms;
+﻿using Algorithms.Core;
 using System;
 using Xunit;
 
