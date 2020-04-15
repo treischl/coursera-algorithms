@@ -22,12 +22,10 @@ namespace Algorithms.Tests.DivideAndConquer
                 var sut = new QuickSorter();
 
                 // act
-                var actual = new Comparisons
-                {
-                    Left = sut.CountComparisons(leftArray.AsSpan(), PivotChoice.LeftMost),
-                    Right = sut.CountComparisons(rightArray.AsSpan(), PivotChoice.RightMost),
-                    Median = sut.CountComparisons(medianArray.AsSpan(), PivotChoice.MedianOfThree),
-                };
+                var actual = new Comparisons();
+                sut.SortInPlace(leftArray.AsSpan(), PivotChoice.LeftMost, ref actual.Left);
+                sut.SortInPlace(rightArray.AsSpan(), PivotChoice.RightMost, ref actual.Right);
+                sut.SortInPlace(medianArray.AsSpan(), PivotChoice.MedianOfThree, ref actual.Median);
 
                 // assert
                 Assert.Equal(expected.Left, actual.Left);
@@ -37,9 +35,9 @@ namespace Algorithms.Tests.DivideAndConquer
 
             public struct Comparisons
             {
-                public long Left;
-                public long Right;
-                public long Median;
+                public int Left;
+                public int Right;
+                public int Median;
             }
 
             public static IEnumerable<object[]> HappyPathData()

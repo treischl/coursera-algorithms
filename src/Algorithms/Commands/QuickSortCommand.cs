@@ -23,7 +23,8 @@ namespace Algorithms.Commands
             var integers = ReadIntegerArrayFile(options.Path).ToArray();
             var outPath = $"{options.Path}.sorted";
 
-            var comparisons = _quickSorter.CountComparisons(integers.AsSpan(), options.PivotChoice);
+            var comparisons = 0;
+            _quickSorter.SortInPlace(integers.AsSpan(), options.PivotChoice, ref comparisons);
 
             _consoleOut.WriteLine($"Number of comparisons: {comparisons}");
             WriteSortedArrayFile(outPath, integers);

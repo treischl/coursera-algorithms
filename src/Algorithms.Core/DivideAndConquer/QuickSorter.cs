@@ -4,35 +4,33 @@ namespace Algorithms.Core.DivideAndConquer
 {
     public class QuickSorter : IQuickSorter
     {
-        private int Comparisons = -1;
-
-        public int CountComparisons(Span<int> integers, PivotChoice pivotChoice)
+        public void SortInPlace(Span<int> integers, PivotChoice pivotChoice, ref int comparisons)
         {
-            Comparisons = 0;
-            Sort(integers, 0, integers.Length - 1, pivotChoice);
-            return Comparisons;
+            comparisons = SortInteral(integers, pivotChoice);
         }
 
-        private void Sort(Span<int> integers, int left, int right, PivotChoice pivotChoice)
+        public int SortInteral(Span<int> integers, PivotChoice pivotChoice)
         {
-            if (left >= right)
+            if (integers.Length <= 1)
             {
-                return;
+                return 0;
             }
 
-            var i = ChoosePivot(integers, left, right, pivotChoice);
-            Swap(integers, left, i);
-            var j = Partition(integers, left, right);
-            Sort(integers, left, j - 1, pivotChoice);
-            Sort(integers, j + 1, right, pivotChoice);
+            var i = ChoosePivot(integers, pivotChoice);
+            Swap(integers, 0, i);
+            var j = Partition(integers);
+            var comparisons = integers.Length - 1;
+            if (j > 0)
+                comparisons += SortInteral(integers.Slice(0, j), pivotChoice);
+            comparisons += SortInteral(integers.Slice(j + 1), pivotChoice);
+            return comparisons;
         }
 
-        private int Partition(Span<int> integers, int left, int right)
+        private int Partition(Span<int> integers)
         {
-            Comparisons += right - left;
-            var p = integers[left];
-            var i = left + 1;
-            for (var j = left + 1; j <= right; j++)
+            var p = integers[0];
+            var i = 1;
+            for (var j = 1; j <= integers.Length - 1; j++)
             {
                 if (integers[j] < p)
                 {
@@ -40,7 +38,7 @@ namespace Algorithms.Core.DivideAndConquer
                     i++;
                 }
             }
-            Swap(integers, left, i - 1);
+            Swap(integers, 0, i - 1);
             return i - 1;
         }
 
@@ -51,33 +49,34 @@ namespace Algorithms.Core.DivideAndConquer
             integers[y] = temp;
         }
 
-        private int ChoosePivot(Span<int> integers, int left, int right, PivotChoice pivotChoice)
+        private readonly Lazy<Random> _pivotRandomizer = new Lazy<Random>();
+
+        private int ChoosePivot(Span<int> integers, PivotChoice pivotChoice)
         {
             switch (pivotChoice)
             {
                 case PivotChoice.LeftMost:
-                    return left;
+                    return 0;
                 case PivotChoice.RightMost:
-                    return right;
+                    return integers.Length - 1;
                 case PivotChoice.MedianOfThree:
-                    var length = right - left + 1;
-                    var mid = length % 2 == 0
-                        ? left + (length / 2) - 1
-                        : left + (length / 2);
-                    if ((integers[left] > integers[mid]) != (integers[left] > integers[right]))
+                    var mid = integers.Length % 2 == 0
+                        ? (integers.Length / 2) - 1
+                        : integers.Length / 2;
+                    if ((integers[0] > integers[mid]) != (integers[0] > integers[^1]))
                     {
-                        return left;
+                        return 0;
                     }
-                    else if ((integers[mid] > integers[left]) != (integers[mid] > integers[right]))
+                    else if ((integers[mid] > integers[0]) != (integers[mid] > integers[^1]))
                     {
                         return mid;
                     }
                     else
                     {
-                        return right;
+                        return integers.Length - 1;
                     }
                 default:
-                    return new Random().Next(left, right + 1);
+                    return _pivotRandomizer.Value.Next(0, integers.Length);
             }
         }
     }

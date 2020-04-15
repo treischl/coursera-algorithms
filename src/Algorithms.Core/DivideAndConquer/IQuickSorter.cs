@@ -4,6 +4,6 @@ namespace Algorithms.Core.DivideAndConquer
 {
     public interface IQuickSorter
     {
-        int CountComparisons(Span<int> integers, PivotChoice pivotChoice);
+        void SortInPlace(Span<int> integers, PivotChoice pivotChoice, ref int comparisons);
     }
 }
