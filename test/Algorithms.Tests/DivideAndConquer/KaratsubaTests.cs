@@ -1,17 +1,13 @@
-﻿using Algorithms.Commands;
-using Algorithms.Verbs;
-using Autofac.Extras.Moq;
+﻿using Algorithms.Core;
+using Algorithms.Core.DivideAndConquer;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using Xunit;
 
-namespace Algorithms.Tests.Commands
+namespace Algorithms.Tests.DivideAndConquer
 {
-    public class KaratsubaCommandTests
+    public class KaratsubaTests
     {
-        public class Execute
+        public class MultiplyXAndY
         {
             [Theory]
             [InlineData(
@@ -20,30 +16,30 @@ namespace Algorithms.Tests.Commands
                 "8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184")]
             [InlineData("1234", "5678", "7006652")]
             [InlineData(null, null, null)]
-            public void WhenOnHappyPath_ReturnsProductOfValues(string x, string y, string product)
+            public void WhenOnHappyPath_ReturnsProductOfXAndY(string x, string y, string product)
             {
                 // arrange
-                var rand = new Random();
                 if (x is null || y is null)
                 {
+                    var rand = new Random();
                     x = rand.Next(1000, 9999).ToString();
                     y = rand.Next(1000, 9999).ToString();
                     product = (int.Parse(x) * int.Parse(y)).ToString();
                 }
-                var options = new KaratsubaOptions
-                {
-                    X = x,
-                    Y = y,
-                };
-                using var mock = AutoMock.GetLoose();
-                var sut = mock.Create<KaratsubaCommand>();
+                var first = x.ToSpanOfInt();
+                var second = y.ToSpanOfInt();
+                var expected = product.ToSpanOfInt();
+                var sut = new Karatsuba();
 
                 // act
-                sut.Execute(options);
+                var actual = sut.MultiplyXAndY(first, second);
 
                 // assert
-                mock.Mock<TextWriter>().Verify(
-                    x => x.WriteLine(product));
+                Assert.Equal(expected.Length, actual.Length);
+                for (var i = 0; i < expected.Length; i++)
+                {
+                    Assert.Equal(expected[i], actual[i]);
+                }
             }
         }
     }

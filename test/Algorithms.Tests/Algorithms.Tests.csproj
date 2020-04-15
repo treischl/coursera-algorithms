@@ -29,6 +29,134 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Algorithms\Algorithms.csproj" />
+    <ProjectReference Include="..\..\src\Algorithms.Core\Algorithms.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DivideAndConquer\QuickSortTestCases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_01.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_02.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_03.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_04.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_05.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_06.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_07.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_08.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_09.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_10.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_11.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_12.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_13.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_14.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_15.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_16.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_17.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_18.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_19.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\input_20.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_01.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_02.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_03.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_04.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_05.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_06.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_07.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_08.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_09.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_10.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_11.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_12.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_13.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_14.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_15.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_16.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_17.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_18.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_19.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DivideAndConquer\QuickSortTestCases\output_20.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
