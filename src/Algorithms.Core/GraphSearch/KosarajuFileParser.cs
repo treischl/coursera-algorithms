@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Algorithms.Core.GraphSearch
 {
-    public class KosarajuFileParser
+    public class KosarajuFileParser : IKosarajuFileParser
     {
         public DirectedAdjacencyList ParseFile(string filePath)
         {
