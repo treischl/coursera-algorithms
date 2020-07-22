@@ -1,0 +1,4 @@
+[submodule "test/testCases"]
+	path = test/testCases
+	url = git@github.com:treischl/stanford-algs.git
+	branch = only-test-cases
