@@ -49,7 +49,7 @@ namespace Algorithms.Core.GraphSearch.ShortestPath
             while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null
                 && !string.IsNullOrWhiteSpace(line))
             {
-                var lineParts = line.Split('\t');
+                var lineParts = line.Split('\t', StringSplitOptions.RemoveEmptyEntries);
                 var headLabel = int.Parse(lineParts[0]);
                 var lineEdges = lineParts[1..]
                     .Select(TailTupleSelector)
