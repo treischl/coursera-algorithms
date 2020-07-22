@@ -14,10 +14,12 @@ namespace Algorithms.Tests.GraphSearch
             [Theory]
             [MemberData(nameof(HappyPathData))]
             public void WhenOnHappyPath_ReturnsLargestStronglyConnectedComponents(
-                DirectedAdjacencyList inputGraph,
+                string inputFile,
                 int[] expected)
             {
                 // arrange
+                var parser = new KosarajuFileParser();
+                var inputGraph = parser.ParseFile(inputFile);
                 var sut = new Kosaraju();
 
                 // act
@@ -37,15 +39,12 @@ namespace Algorithms.Tests.GraphSearch
 
             public static IEnumerable<object[]> HappyPathData()
             {
-                var testCaseDir = Path.Combine(Environment.CurrentDirectory, "GraphSearch", "KosarajuTestCases");
-                var parser = new KosarajuFileParser();
-
-                foreach (var inputFile in Directory.GetFiles(testCaseDir, "input*.txt"))
+                var inputFiles = TestCaseUtils.GetTestCaseFiles(2, 1);
+                foreach (var inputFile in inputFiles)
                 {
                     var outputFile = inputFile.Replace("input", "output");
-                    var inputGraph = parser.ParseFile(inputFile);
                     var expected = GetExpectedOutput(outputFile);
-                    yield return new object[] { inputGraph, expected };
+                    yield return new object[] { inputFile, expected };
                 }
             }
 

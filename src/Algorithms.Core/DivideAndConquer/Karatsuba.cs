@@ -35,6 +35,10 @@ namespace Algorithms.Core.DivideAndConquer
         private Span<int> GetBaseCase(int x, int y)
         {
             var product = x * y;
+            if (product < 10)
+            {
+                return new int[] { product }.AsSpan();
+            }
             return new int[]
             {
                 product / 10,
