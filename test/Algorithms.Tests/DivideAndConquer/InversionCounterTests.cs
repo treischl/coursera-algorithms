@@ -1,6 +1,8 @@
 ﻿using Algorithms.Core.DivideAndConquer;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace Algorithms.Tests.DivideAndConquer
@@ -23,12 +25,22 @@ namespace Algorithms.Tests.DivideAndConquer
                 Assert.Equal(expected, actual);
             }
 
-            public static IEnumerable<object[]> HappyPathData() => new List<object[]>
-        {
-            new object[] { new int[] { 1, 3, 5, 2, 4, 6 }, 3 },
-            new object[] { new int[] { 6, 5, 4, 3, 2, 1 }, 15 },
-            new object[] { new int[] { 1, 2, 3, 4, 5, 6 }, 0 },
-        };
+            public static IEnumerable<object[]> HappyPathData()
+            {
+                var inputFiles = TestCaseUtils.GetTestCaseFiles(1, 2);
+                foreach (var inputFile in inputFiles)
+                {
+                    var integers = ReadIntegerArrayFile(inputFile);
+                    var outputFile = inputFile.Replace("input_", "output_");
+                    var expected = GetExpectedInversionsCount(outputFile);
+                    yield return new object[] { integers, expected };
+                }
+            }
+            private static int[] ReadIntegerArrayFile(string filePath) =>
+                File.ReadAllLines(filePath).Select(x => int.Parse(x)).ToArray();
+
+            private static long GetExpectedInversionsCount(string filePath) =>
+                File.ReadLines(filePath).Select(x => long.Parse(x)).First();
         }
     }
 }
