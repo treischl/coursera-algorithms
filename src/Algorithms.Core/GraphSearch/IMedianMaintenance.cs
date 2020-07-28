@@ -5,6 +5,6 @@ namespace Algorithms.Core.GraphSearch
 {
     public interface IMedianMaintenance
     {
-        Task<int> CalculateSumOfMedians(IAsyncEnumerable<int> numbers);
+        Task<long> CalculateSumOfMedians(IAsyncEnumerable<int> numbers);
     }
 }

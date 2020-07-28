@@ -24,7 +24,7 @@ namespace Algorithms.Tests.GraphSearch
                 var actual = await sut.CalculateSumOfMedians(inputFileNumbers).ConfigureAwait(false);
 
                 // assert
-                Assert.Equal(expected, actual);
+                Assert.Equal(expected, actual % 10000);
             }
 
             public static IEnumerable<object[]> HappyPathData()
