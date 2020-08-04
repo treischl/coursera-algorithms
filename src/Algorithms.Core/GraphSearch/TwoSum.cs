@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Algorithms.Core.GraphSearch
 {
@@ -9,13 +11,17 @@ namespace Algorithms.Core.GraphSearch
             IEnumerable<long> targets
         )
         {
-            foreach (var target in targets)
+            var distinctSums = new ConcurrentBag<long>();
+
+            Parallel.ForEach(targets, target =>
             {
                 if (HasTarget(numbers, target))
                 {
-                    yield return target;
+                    distinctSums.Add(target);
                 }
-            }
+            });
+
+            return distinctSums;
         }
 
         private bool HasTarget(IDictionary<long, long> numbers, long target)
