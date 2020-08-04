@@ -45,7 +45,8 @@ namespace Algorithms.Tests.GraphSearch
 
             public static IEnumerable<object[]> HappyPathData()
             {
-                var inputFiles = TestCaseUtils.GetTestCaseFiles(2, 4);
+                const int fileSizeLimit = 1 << 15; // 32 KB;
+                var inputFiles = TestCaseUtils.GetTestCaseFiles(2, 4, fileSizeLimit);
                 foreach (var inputFile in inputFiles)
                 {
                     var outputFile = inputFile.Replace("input", "output");
