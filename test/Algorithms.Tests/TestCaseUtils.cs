@@ -5,24 +5,40 @@ using System.Linq;
 
 namespace Algorithms.Tests
 {
-    public static class TestCaseUtils
+    internal static class TestCaseUtils
     {
         private const int ONE_MEGABYTE = 1048576;
+
+        [Obsolete("Deprecated. Please use GetTestCaseFiles(int, int, TestCaseFileConfig).")]
+        public static IEnumerable<string> GetTestCaseFiles(
+            int courseNumber,
+            int assignmentNumber,
+            double fileSizeLimitInBytes = ONE_MEGABYTE
+        ) => GetTestCaseFiles(
+            courseNumber,
+            assignmentNumber,
+            new TestCaseFileConfig { FileSizeLimitInBytes = fileSizeLimitInBytes }
+        );
 
         public static IEnumerable<string> GetTestCaseFiles(
             int courseNumber,
             int assignmentNumber,
-            double fileSizeLimitInBytes = ONE_MEGABYTE)
+            TestCaseFileConfig config
+        )
         {
             var testCasesDir = GetTestCasesDirectory();
             var courseDir = Directory.GetDirectories(testCasesDir, $"course{courseNumber}")[0];
             var assignmentDir = Directory.GetDirectories(courseDir, $"assignment{assignmentNumber}*")[0];
-            if (fileSizeLimitInBytes <= 0)
+            if (!string.IsNullOrEmpty(config.AssignmentSubDirectory))
             {
-                fileSizeLimitInBytes = ONE_MEGABYTE;
+                assignmentDir = Path.Combine(assignmentDir, config.AssignmentSubDirectory);
+            }
+            if (config.FileSizeLimitInBytes <= 0)
+            {
+                config.FileSizeLimitInBytes = ONE_MEGABYTE;
             }
             return Directory.GetFiles(assignmentDir, "input_*")
-                .Where(x => new FileInfo(x).Length < fileSizeLimitInBytes);
+                .Where(x => new FileInfo(x).Length < config.FileSizeLimitInBytes);
         }
 
         private static string GetTestCasesDirectory()
